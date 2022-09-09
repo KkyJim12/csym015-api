@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Server is running.");
+});
+
 app.post("/api/geocoding", async (req, res) => {
   try {
     let geo = [];
@@ -27,6 +31,7 @@ app.post("/api/geocoding", async (req, res) => {
     res.status(200).send({ data: geo });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "something wrong" });
   }
 });
 
@@ -47,6 +52,7 @@ app.post("/api/destinations", async (req, res) => {
     res.status(200).json({ data: results, message: "success" });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "something wrong" });
   }
 });
 
